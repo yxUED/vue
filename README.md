@@ -6,6 +6,36 @@
 ### 关于vue
 Vue 是一套用于构建用户界面的渐进式框架, 由Google华裔前端工程师 尤雨溪于2014年开源；
 
+### 结构
+
+├── LICENSE
+├── README.md
+├── dist
+│   ├── README.md
+│   ├── vue.common.js
+│   ├── vue.esm.browser.js
+│   ├── vue.esm.js
+│   ├── vue.js
+│   ├── vue.min.js
+│   ├── vue.runtime.common.js
+│   ├── vue.runtime.esm.js
+│   ├── vue.runtime.js
+│   └── vue.runtime.min.js
+├── package.json
+├── src
+│   ├── compiler
+│   ├── core
+│   ├── platforms
+│   ├── server
+│   ├── sfc
+│   └── shared
+└── types
+    ├── index.d.ts
+    ├── options.d.ts
+    ├── plugin.d.ts
+    ├── vnode.d.ts
+    └── vue.d.ts
+
 ## 加入我们
 注释vue核心库的这个事情，我们希望能有更多的人参与，大家一起共同学习进步，只要加入yxUED这个组，就可以直接把您注释的内容提交上来。
 
