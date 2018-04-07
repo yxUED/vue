@@ -106,6 +106,113 @@
 
 ### 这些方法你可以看一眼留个印象后文会用到
 
+>到目前为止只是最开始我们找到的最后一个文件对Vue的处理都是在原型上挂的一超级方法和属性下边我们一个文件一个文件往前看
+
+> 从instance/index导出Vue后进入找到`'core/index'`
+
+![](vue-images/v1-1.png)
+
+>此文件主要导入 initGlobalAPI 和 isServerRendering，之后将Vue作为参数传给 initGlobalAPI ，最后又在 Vue.prototype 上挂载了 $isServer ，在 Vue 上挂载了 version 属性。
+>我们看下initGlobalAPI做了什么处理
+
+
+![](vue-images/v1-2.png)
+
+>经过这个文件处理后
+
+
+	// src/core/index.js / src/core/global-api/index.js
+	Vue.config
+	Vue.util = util
+	Vue.set = set
+	Vue.delete = del
+	Vue.nextTick = util.nextTick
+	Vue.options = {
+	    components: {
+	        KeepAlive
+	    },
+	    directives: {},
+	    filters: {},
+	    _base: Vue
+	}
+	Vue.use
+	Vue.mixin
+	Vue.cid = 0
+	Vue.extend
+	Vue.component = function(){}
+	Vue.directive = function(){}
+	Vue.filter = function(){}
+	
+	Vue.prototype.$isServer
+	Vue.version = '__VERSION__'
+
+>下一个文件是web-runtime.js
+
+![](vue-images/v1-3.png)
+
+### 主要做了三件事
+
+>1、覆盖 Vue.config 的属性，将其设置为平台特有的一些方法
+
+>2、Vue.options.directives 和 Vue.options.components 安装平台特有的指令和组件
+
+>3、在 Vue.prototype 上定义 __patch__ 和 $mount
+
+	// 安装平台特定的utils
+	Vue.config.isUnknownElement = isUnknownElement
+	Vue.config.isReservedTag = isReservedTag
+	Vue.config.getTagNamespace = getTagNamespace
+	Vue.config.mustUseProp = mustUseProp
+	// 安装平台特定的 指令 和 组件
+	Vue.options = {
+	    components: {
+	        KeepAlive,
+	        Transition,
+	        TransitionGroup
+	    },
+	    directives: {
+	        model,
+	        show
+	    },
+	    filters: {},
+	    _base: Vue
+	}
+	Vue.prototype.__patch__
+	Vue.prototype.$mount
+
+>最后一个文件
+
+![](vue-images/v1-4.png)
+
+### 主要两件事
+
+> 1、缓存来自 web-runtime.js 文件的 $mount 函数
+
+> 2、在 Vue 上挂载 compile
+
+### 至此，我们还原了Vue构造函数
+
+	1、Vue.prototype 下的属性和方法的挂载主要是在 src/core/instance 目录中的代码处理的
+
+	2、Vue 下的静态属性和方法的挂载主要是在 src/core/global-api 目录下的代码处理的
+	
+	3、web-runtime.js 主要是添加web平台特有的配置、组件和指令，web-runtime-with-compiler.js 给Vue的 $mount 方法添加 compiler 编译器，支持 template。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
