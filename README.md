@@ -7,44 +7,43 @@
 - [Vue的数据响应系统--initData方法](learn-3.md)
 - [Vue的渲染--initRender方法](learn-4.md)
 
-
-[代码分析2.1.3](vue-learn.md)
 ## 项目介绍
 为了更好的在公司内部使用vue技术栈，我们尝试自己本地维护vue技术栈用到的核心库，在本地开发维护之前，我们需要去了解vue这个核心库的基本原理，而对已有的代码进行注释就是一个很好的学习方式。
 
 ### 关于vue
 Vue 是一套用于构建用户界面的渐进式框架, 由Google华裔前端工程师 尤雨溪于2014年开源；
 
-### 结构 目前版本(2.5.13) [目录说明](https://github.com/vuejs/vue/blob/dev/.github/CONTRIBUTING.md#development-setup)
+### 结构 目前版本(2.5.13) 
+
+如果想对源码有所了解请先把vue项目的介绍[https://github.com/vuejs/vue/blob/dev/.github/CONTRIBUTING.md#development-setup](https://github.com/vuejs/vue/blob/dev/.github/CONTRIBUTING.md#development-setup)
 
 ```
-├── LICENSE
-├── README.md
-├── dist
-│   ├── README.md
-│   ├── vue.common.js
-│   ├── vue.esm.browser.js
-│   ├── vue.esm.js
-│   ├── vue.js
-│   ├── vue.min.js
-│   ├── vue.runtime.common.js
-│   ├── vue.runtime.esm.js
-│   ├── vue.runtime.js
-│   └── vue.runtime.min.js
-├── package.json
-├── src
-│   ├── compiler
-│   ├── core
-│   ├── platforms
-│   ├── server
-│   ├── sfc
-│   └── shared
-└── types
-    ├── index.d.ts
-    ├── options.d.ts
-    ├── plugin.d.ts
-    ├── vnode.d.ts
-    └── vue.d.ts
+├── build --------------------------------- 构建相关的文件，一般情况下我们不需要动
+├── dist ---------------------------------- 构建后文件的输出目录
+├── examples ------------------------------ 存放一些使用Vue开发的应用案例
+├── flow ---------------------------------- 类型声明，使用开源项目 [Flow](https://flowtype.org/)
+├── package.json -------------------------- 不解释
+├── test ---------------------------------- 包含所有测试文件
+├── src ----------------------------------- 这个是我们最应该关注的目录，包含了源码
+│   ├── entries --------------------------- 包含了不同的构建或包的入口文件
+│   │   ├── web-runtime.js ---------------- 运行时构建的入口，输出 dist/vue.common.js 文件，不包含模板(template)到render函数的编译器，所以不支持 `template` 选项，我们使用vue默认导出的就是这个运行时的版本。大家使用的时候要注意
+│   │   ├── web-runtime-with-compiler.js -- 独立构建版本的入口，输出 dist/vue.js，它包含模板(template)到render函数的编译器
+│   │   ├── web-compiler.js --------------- vue-template-compiler 包的入口文件
+│   │   ├── web-server-renderer.js -------- vue-server-renderer 包的入口文件
+│   ├── compiler -------------------------- 编译器代码的存放目录，将 template 编译为 render 函数
+│   │   ├── parser ------------------------ 存放将模板字符串转换成元素抽象语法树的代码
+│   │   ├── codegen ----------------------- 存放从抽象语法树(AST)生成render函数的代码
+│   │   ├── optimizer.js ------------------ 分析静态树，优化vdom渲染
+│   ├── core ------------------------------ 存放通用的，平台无关的代码
+│   │   ├── observer ---------------------- 反应系统，包含数据观测的核心代码
+│   │   ├── vdom -------------------------- 包含虚拟DOM创建(creation)和打补丁(patching)的代码
+│   │   ├── instance ---------------------- 包含Vue构造函数设计相关的代码
+│   │   ├── global-api -------------------- 包含给Vue构造函数挂载全局方法(静态方法)或属性的代码
+│   │   ├── components -------------------- 包含抽象出来的通用组件
+│   ├── server ---------------------------- 包含服务端渲染(server-side rendering)的相关代码
+│   ├── platforms ------------------------- 包含平台特有的相关代码
+│   ├── sfc ------------------------------- 包含单文件组件(.vue文件)的解析逻辑，用于vue-template-compiler包
+│   ├── shared ---------------------------- 包含整个代码库通用的代码
 ```
 
 ## 加入我们
