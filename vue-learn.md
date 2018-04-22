@@ -446,12 +446,12 @@
 >综上所述：按照我们的例子那样写，初始化工作只包含两个主要内容即：initData 和 initRender。
 
 
-### initData
+### initData(数据响应系统)
 
 
 
 
-### initRender
+### initRender(Vue的 render(渲染))
 
 
 

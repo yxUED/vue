@@ -2,10 +2,10 @@
 
 ## vue源码分析(2.1.7)
 
-- [Vue构造器追踪]()
-- [Vue实例初始化过程]()
-- [Vue的数据响应系统--initData方法]()
-- [Vue的渲染--initRender方法]()
+- [Vue构造器追踪](learn-1.md)
+- [Vue实例初始化过程](learn-2.md)
+- [Vue的数据响应系统--initData方法](learn-3.md)
+- [Vue的渲染--initRender方法](learn-4.md)
 
 
 [代码分析2.1.3](vue-learn.md)
